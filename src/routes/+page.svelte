@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { mousePositionStore } from '$lib/stores';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -9,6 +10,10 @@
 	const circleX = width / 2;
 	const circleY = height / 2;
 	const circleRadius = 30;
+
+	const initialMousePosition = { x: width / 2, y: height / 2 };
+
+	mousePositionStore.hydrate(initialMousePosition);
 
 	const handleMouseMove = (event: MouseEvent) => {
 		const { clientX, clientY } = event;
