@@ -2,10 +2,12 @@
 	import { mousePositionStore } from '$lib/stores';
 	import { getContext, onMount } from 'svelte';
 	import * as d3 from 'd3';
+	import { dataStore } from '$lib/stores/data-store';
 
 	const rawData: any = getContext('csvData');
-
 	$: parsedData = d3.csvParse($rawData.csvData);
+
+	const handleAdd = () => dataStore.update('\nCSS Level 1,black,#000000');
 
 	const width = 960;
 	const height = 500;
@@ -21,6 +23,8 @@
 		mousePositionStore.update(clientX, clientY);
 	};
 </script>
+
+<button on:click={handleAdd}>Hello</button>
 
 <svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
 	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />

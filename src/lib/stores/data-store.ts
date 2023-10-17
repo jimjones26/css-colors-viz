@@ -7,7 +7,12 @@ const _dataStore = () => {
 
   return {
     subscribe,
-    set: (data: string) => set({ csvData: data })
+    set: (data: string) => set({ csvData: data }),
+    update: (text: string) => update((currentState: any) => {
+      const newCsvData = currentState.csvData.concat(text.toString())
+      return { csvData: newCsvData }
+
+    })
   }
 }
 
