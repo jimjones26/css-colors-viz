@@ -2,8 +2,12 @@
 	import { mousePositionStore } from '$lib/stores';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import * as d3 from 'd3';
 
 	export let data: PageData;
+	let parsedData = d3.csvParse(data.data);
+
+	console.log('raw: ', data);
 
 	const width = 960;
 	const height = 500;
@@ -24,4 +28,6 @@
 	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
 </svg>
 
-{data.data}
+<div>{JSON.stringify(Math.round(data?.data.length / 1024))} kb</div>
+<div>{JSON.stringify(parsedData.length)} items</div>
+<div>{JSON.stringify(parsedData.columns.length)} columns</div>
