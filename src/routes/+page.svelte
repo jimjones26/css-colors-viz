@@ -7,8 +7,6 @@
 	export let data: PageData;
 	let parsedData = d3.csvParse(data.data);
 
-	console.log('raw: ', data);
-
 	const width = 960;
 	const height = 500;
 
