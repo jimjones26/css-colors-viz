@@ -8,7 +8,7 @@ const _mousePositionStore = () => {
 
   return {
     subscribe,
-    hydrate: (position: { x: number; y: number; }) => set({ clientX: position.x, clientY: position.y }),
+    set: (position: { x: number; y: number; }) => set({ clientX: position.x, clientY: position.y }),
     update: (clientX: number, clientY: number) => update((currentState) => {
       return { ...currentState, clientX, clientY }
     })
