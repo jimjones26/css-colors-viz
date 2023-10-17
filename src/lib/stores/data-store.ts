@@ -8,10 +8,9 @@ const _dataStore = () => {
   return {
     subscribe,
     set: (data: Array<object>) => set({ csvData: data }),
-    update: (text: string) => update((currentState: any) => {
-      const newCsvData = currentState.csvData.concat(text.toString())
-      return { csvData: newCsvData }
-
+    update: (item: Object) => update((currentState: any) => {
+      currentState.csvData.push(item)
+      return { ...currentState }
     })
   }
 }

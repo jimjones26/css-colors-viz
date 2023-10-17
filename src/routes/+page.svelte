@@ -7,7 +7,12 @@
 
 	const chartData: any = getContext('csvData');
 
-	const handleAdd = () => dataStore.update('\nCSS Level 1,black,#000000');
+	const handleAdd = () =>
+		dataStore.update({
+			Specification: 'CSS Level 1',
+			Keyword: 'black',
+			'RGB hex value': '#000000'
+		});
 
 	const width = 960;
 	const height = 500;
