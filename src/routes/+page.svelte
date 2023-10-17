@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { mousePositionStore } from '$lib/stores';
-	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
+	import { getContext, onMount } from 'svelte';
 	import * as d3 from 'd3';
+	import { dataStore } from '$lib/stores/data-store';
+	import ChartStats from '$lib/components/ui/ChartStats.svelte';
 
-	export let data: PageData;
-	let parsedData = d3.csvParse(data.data);
+	const rawData: any = getContext('csvData');
+	$: parsedData = d3.csvParse($rawData.csvData);
+
+	const handleAdd = () => dataStore.update('\nCSS Level 1,black,#000000');
 
 	const width = 960;
 	const height = 500;
@@ -20,12 +23,19 @@
 		const { clientX, clientY } = event;
 		mousePositionStore.update(clientX, clientY);
 	};
+
+	$: console.log('parsed data: ', parsedData);
 </script>
 
-<svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
-	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
-</svg>
+<div>
+	<svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
+		<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
+	</svg>
+</div>
+<div><button on:click={handleAdd}>Hello</button></div>
 
-<div>{JSON.stringify(Math.round(data?.data.length / 1024))} kb</div>
-<div>{JSON.stringify(parsedData.length)} items</div>
-<div>{JSON.stringify(parsedData.columns.length)} columns</div>
+<ChartStats
+	dataSize={Math.round($rawData.csvData.length / 1024)}
+	numberOfItems={parsedData.length}
+	numberOfColumns={parsedData.columns.length}
+/>
