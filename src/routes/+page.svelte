@@ -3,6 +3,7 @@
 	import { getContext, onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import { dataStore } from '$lib/stores/data-store';
+	import ChartStats from '$lib/components/ui/ChartStats.svelte';
 
 	const rawData: any = getContext('csvData');
 	$: parsedData = d3.csvParse($rawData.csvData);
@@ -32,6 +33,9 @@
 	</svg>
 </div>
 <div><button on:click={handleAdd}>Hello</button></div>
-<div>{JSON.stringify(Math.round($rawData.csvData.length / 1024))} kb</div>
-<div>{JSON.stringify(parsedData.length)} items</div>
-<div>{JSON.stringify(parsedData.columns.length)} columns</div>
+
+<ChartStats
+	dataSize={Math.round($rawData.csvData.length / 1024)}
+	numberOfItems={parsedData.length}
+	numberOfColumns={parsedData.columns.length}
+/>
