@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { mousePositionStore } from '$lib/stores';
-	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
+	import { getContext, onMount } from 'svelte';
 	import * as d3 from 'd3';
 
-	export let data: PageData;
-	let parsedData = d3.csvParse(data.data);
+	const rawData: any = getContext('csvData');
+
+	$: parsedData = d3.csvParse($rawData.csvData);
 
 	const width = 960;
 	const height = 500;
@@ -26,6 +26,13 @@
 	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
 </svg>
 
-<div>{JSON.stringify(Math.round(data?.data.length / 1024))} kb</div>
+<!-- <div>{JSON.stringify(Math.round(data?.data.length / 1024))} kb</div>
 <div>{JSON.stringify(parsedData.length)} items</div>
 <div>{JSON.stringify(parsedData.columns.length)} columns</div>
+ -->
+
+<div>{JSON.stringify(Math.round($rawData.csvData.length / 1024))} kb</div>
+<div>{JSON.stringify(parsedData.length)} items</div>
+<div>{JSON.stringify(parsedData.columns.length)} columns</div>
+
+{JSON.stringify($rawData.csvData)}
