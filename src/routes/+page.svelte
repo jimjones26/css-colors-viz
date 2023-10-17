@@ -5,10 +5,14 @@
 	import { dataStore } from '$lib/stores/data-store';
 	import ChartStats from '$lib/components/ui/ChartStats.svelte';
 
-	const rawData: any = getContext('csvData');
-	$: parsedData = d3.csvParse($rawData.csvData);
+	const chartData: any = getContext('csvData');
 
-	const handleAdd = () => dataStore.update('\nCSS Level 1,black,#000000');
+	const handleAdd = () =>
+		dataStore.update({
+			Specification: 'CSS Level 1',
+			Keyword: 'black',
+			'RGB hex value': '#000000'
+		});
 
 	const width = 960;
 	const height = 500;
@@ -24,7 +28,7 @@
 		mousePositionStore.update(clientX, clientY);
 	};
 
-	$: console.log('parsed data: ', parsedData);
+	$: console.log('chart data: ', $chartData.csvData);
 </script>
 
 <div>
@@ -35,7 +39,7 @@
 <div><button on:click={handleAdd}>Hello</button></div>
 
 <ChartStats
-	dataSize={Math.round($rawData.csvData.length / 1024)}
-	numberOfItems={parsedData.length}
-	numberOfColumns={parsedData.columns.length}
+	dataSize={Math.round(d3.csvFormat($chartData.csvData).length / 1024)}
+	numberOfItems={$chartData.csvData.length}
+	numberOfColumns={$chartData.csvData.columns.length}
 />

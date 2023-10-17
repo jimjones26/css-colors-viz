@@ -4,6 +4,6 @@
 	export let numberOfColumns: number;
 </script>
 
-<div>{dataSize} kb</div>
+<div>{dataSize} kB</div>
 <div>{numberOfItems} items</div>
 <div>{numberOfColumns} columns</div>
