@@ -29,12 +29,6 @@
 <svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
 	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
 </svg>
-
-<!-- <div>{JSON.stringify(Math.round(data?.data.length / 1024))} kb</div>
-<div>{JSON.stringify(parsedData.length)} items</div>
-<div>{JSON.stringify(parsedData.columns.length)} columns</div>
- -->
-
 <div>{JSON.stringify(Math.round($rawData.csvData.length / 1024))} kb</div>
 <div>{JSON.stringify(parsedData.length)} items</div>
 <div>{JSON.stringify(parsedData.columns.length)} columns</div>
