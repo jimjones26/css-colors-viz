@@ -22,15 +22,16 @@
 		const { clientX, clientY } = event;
 		mousePositionStore.update(clientX, clientY);
 	};
+
+	$: console.log('parsed data: ', parsedData);
 </script>
 
-<button on:click={handleAdd}>Hello</button>
-
-<svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
-	<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
-</svg>
+<div>
+	<svg {width} {height} on:mousemove={handleMouseMove} role="presentation">
+		<circle cx={$mousePositionStore.clientX} cy={$mousePositionStore.clientY} r={circleRadius} />
+	</svg>
+</div>
+<div><button on:click={handleAdd}>Hello</button></div>
 <div>{JSON.stringify(Math.round($rawData.csvData.length / 1024))} kb</div>
 <div>{JSON.stringify(parsedData.length)} items</div>
 <div>{JSON.stringify(parsedData.columns.length)} columns</div>
-
-{JSON.stringify($rawData.csvData)}
