@@ -22,14 +22,8 @@
 
 <svg {height} {width}>
 	<g transform={`translate(${centerX}, ${centerY})`}>
-		{#each $chartData.csvData as item, i}
-			<path
-				fill={item['RGB hex value']}
-				d={pieArc({
-					startAngle: (i / $chartData.csvData.length) * 2 * Math.PI,
-					endAngle: ((i + 1) / $chartData.csvData.length) * 2 * Math.PI
-				})}
-			/>
+		{#each d3.pie().value(1)($chartData.csvData) as item}
+			<path fill={item.data['RGB hex value']} d={pieArc(item)} />
 		{/each}
 	</g>
 </svg>
