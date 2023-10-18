@@ -10,6 +10,7 @@
 	const centerX = width / 2;
 	const centerY = height / 2;
 	const pieArc: any = d3.arc().innerRadius(width).outerRadius(2);
+	const colorPie = d3.pie().value(1);
 
 	/* const handleAdd = () =>
 		dataStore.update({
@@ -22,7 +23,7 @@
 
 <svg {height} {width}>
 	<g transform={`translate(${centerX}, ${centerY})`}>
-		{#each d3.pie().value(1)($chartData.csvData) as item}
+		{#each colorPie($chartData.csvData) as item}
 			<path fill={item.data['RGB hex value']} d={pieArc(item)} />
 		{/each}
 	</g>
