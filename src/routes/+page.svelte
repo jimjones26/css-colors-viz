@@ -5,19 +5,34 @@
 
 	const chartData: any = getContext('csvData');
 
+	const width = 960;
+	const height = 500;
+	const centerX = width / 2;
+	const centerY = height / 2;
+	const pieArc: any = d3.arc().innerRadius(width).outerRadius(2);
+
 	/* const handleAdd = () =>
 		dataStore.update({
 			Specification: 'CSS Level 1',
 			Keyword: 'black',
 			'RGB hex value': '#000000'
 		}); */
-
-	const width = 960;
-	const height = 500;
-
 	//$: console.log('chart data: ', $chartData.csvData);
 </script>
 
+<svg {height} {width}>
+	<g transform={`translate(${centerX}, ${centerY})`}>
+		{#each $chartData.csvData as item, i}
+			<path
+				fill={item['RGB hex value']}
+				d={pieArc({
+					startAngle: (i / $chartData.csvData.length) * 2 * Math.PI,
+					endAngle: ((i + 1) / $chartData.csvData.length) * 2 * Math.PI
+				})}
+			/>
+		{/each}
+	</g>
+</svg>
 <ChartStats
 	dataSize={Math.round(d3.csvFormat($chartData.csvData).length / 1024)}
 	numberOfItems={$chartData.csvData.length}
